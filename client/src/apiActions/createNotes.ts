@@ -1,17 +1,25 @@
 import axios from "axios";
 import API_LINK, { API_ROUTES } from "../apiMap";
-export default function createNotes(noteTitle: string, noteTags: string[], noteDescription: string) {
+import { toast } from "react-toastify";
+import { ERROR_MESSAGES } from "../contents/errorMessages";
+export default async function createNotes(noteTitle: string, noteTags: string[], noteDescription: string) {
   const createNoteLink = `${API_LINK}/${API_ROUTES.CREATE_NOTE}`;
-  axios
-    .post(createNoteLink, {
+  try {
+    const response = await axios.post(createNoteLink, {
       noteTitle,
       noteTags,
       noteDescription,
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
     });
+    const data = response.data;
+    console.log(data);
+    if (data.status !== 200) {
+      toast.error(ERROR_MESSAGES.NOTE_DATA_INVALID_ERROR);
+      return false;
+    }
+    return data;
+  } catch (err) {
+    console.log(err);
+    toast.error(ERROR_MESSAGES.INTERNAL_ERROR);
+    return false;
+  }
 }

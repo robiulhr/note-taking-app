@@ -1,12 +1,13 @@
-import { Box, Button, Divider, Paper, TextField, Typography } from "@mui/material";
+import { Box, Divider, Paper, TextField, Typography } from "@mui/material";
 import RichTextEditor from "../component/richTextEditor";
 import TagFilter from "./tagFilter";
-import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent, useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
 import { ERROR_MESSAGES } from "../contents/errorMessages";
 import { toast } from "react-toastify";
 import createNotes from "../apiActions/createNotes";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { wait } from "../utils/utils";
+import { SUCCESS_MESSAGES } from "../contents/successMessages";
 
 interface NoteFormProps {
   pageTitle: string;
@@ -50,23 +51,26 @@ export default function NoteForm({ noteData, noteHandlers, pageTitle, btnText }:
       setNoteTagsError(ERROR_MESSAGES.NOTE_TAGS_ERROR);
       setNoteDescriptionError(ERROR_MESSAGES.NOTE_DESCRIPTION_ERROR);
       toast.error(ERROR_MESSAGES.NOTE_DATA_ERROR);
-      return;
+      return true;
     } else if (!noteTitle) {
       toast.error(ERROR_MESSAGES.NOTE_TITLE_ERROR);
-      return setNoteTitleError(ERROR_MESSAGES.NOTE_TITLE_ERROR);
+      setNoteTitleError(ERROR_MESSAGES.NOTE_TITLE_ERROR);
+      return true;
     } else if (!noteTags.length) {
       toast.error(ERROR_MESSAGES.NOTE_TAGS_ERROR);
-      return setNoteTagsError(ERROR_MESSAGES.NOTE_TAGS_ERROR);
+      setNoteTagsError(ERROR_MESSAGES.NOTE_TAGS_ERROR);
+      return true;
     } else if (!noteDescription) {
       toast.error(ERROR_MESSAGES.NOTE_DESCRIPTION_ERROR);
-      return setNoteDescriptionError(ERROR_MESSAGES.NOTE_DESCRIPTION_ERROR);
+      setNoteDescriptionError(ERROR_MESSAGES.NOTE_DESCRIPTION_ERROR);
+      return true;
     }
+    return false;
   }
   function noteTitleHandler(e: ChangeEvent<HTMLInputElement>) {
     setNoteTitle(e.target.value);
   }
   function noteTagsHandler(e: SyntheticEvent, value: string[]) {
-    console.log(e, value);
     setNoteTags(value);
   }
   function noteDescriptionHandler(value: string, delta: any, source: any, editor: any) {
@@ -77,16 +81,20 @@ export default function NoteForm({ noteData, noteHandlers, pageTitle, btnText }:
     e.preventDefault();
     resetNoteErrors();
     // set errors
-    setErrors();
+    const anyError = setErrors();
+    if (anyError) return;
     // start loading
     setLoading(true);
-    const response = createNotes(noteTitle, noteTags, noteDescription);
+
     // wait is for test purpose
     await wait(2000);
+    const response = await createNotes(noteTitle, noteTags, noteDescription);
     // stop loading
     setLoading(false);
     resetNoteErrors();
     resetNoteValues();
+    if (!response) return;
+    toast.success(SUCCESS_MESSAGES.NOTE_CREATED);
   }
   return (
     <Paper className="my-6 p-10">

@@ -2,13 +2,16 @@
   "compilerOptions": {
     "target": "es2020",
     "lib": ["es2020"],
+    "types": ["node"],
     "typeRoots": ["node_modules/@types"],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "module": "commonjs",
+    "strict": true,
+    "skipLibCheck": true,
+    "module": "esnext",
     "pretty": true,
     "sourceMap": true,
     "declaration": true,
@@ -31,7 +34,9 @@
       "@models/*": ["models/*"],
       "@routers/*": ["routers/*"],
       "@services/*": ["services/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@contents/*": ["contents/*"],
+      "@dbActions/*": ["dbActions/*"]
     }
   },
   "include": ["src//*.ts", "src//*.json", ".env"],

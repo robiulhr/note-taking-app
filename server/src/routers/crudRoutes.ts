@@ -1,10 +1,9 @@
 import { Router } from "express";
-import createNoteController from "../controllers/crudControllers/createNoteController";
+import { createNoteGetController, createNotePostController } from "../controllers/crudControllers/createNoteController";
 
 const crudRoutes = Router();
 
-crudRoutes.get("/createnote", (req, res) => {
-  res.send("welcome to the createnote page.");
-});
+crudRoutes.get("/createnote", createNoteGetController);
+crudRoutes.post("/createnote", createNotePostController);
 
 export default crudRoutes;

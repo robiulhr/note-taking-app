@@ -3,12 +3,14 @@ import "dotenv/config";
 import { Request, Response } from "express";
 import app from "./index";
 import crudRoutes from "./routers/crudRoutes";
+
 /*
   ===============================================================
  Importing the port set on the .env, if the port number is not set on .env or the port is being used by another server
 running on the local macchine we are asking the app to use 3000 as the port number 
   ===============================================================
 */
+
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req: Request, res: Response) => {

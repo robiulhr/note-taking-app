@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NoteForm from "../component/noteForm";
 
 export default function Create() {
@@ -10,8 +10,5 @@ export default function Create() {
   const [noteDescription, setNoteDescription] = useState("");
   const noteData = { noteTitle, noteTags, noteDescription };
   const noteHandlers = { setNoteTitle, setNoteTags, setNoteDescription };
-  useEffect(() => {
-    console.log(noteTitle, noteTags, noteDescription);
-  }, [noteTitle, noteTags, noteDescription]);
   return <NoteForm noteHandlers={noteHandlers} noteData={noteData} pageTitle={"Create New Note"} btnText={"Save Note"} />;
 }
