@@ -6,7 +6,7 @@ import crudRoutes from "./routers/crudRoutes";
 
 /*
   ===============================================================
- Importing the port set on the .env, if the port number is not set on .env or the port is being used by another server
+Importing the port set on the .env, if the port number is not set on .env or the port is being used by another server
 running on the local macchine we are asking the app to use 3000 as the port number 
   ===============================================================
 */

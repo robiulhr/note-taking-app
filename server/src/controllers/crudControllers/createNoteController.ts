@@ -1,30 +1,23 @@
 import { Request, Response } from "express";
-import { SUCCESS_MESSAGES } from "@contents/successMessages";
-import { ERROR_MESSAGES } from "@contents/errorMessages";
+import { SUCCESS_MESSAGES } from "../../contents/successMessages";
+import { ERROR_MESSAGES } from "../../contents/errorMessages";
+import { createNote } from "../../dbActions/crudActions";
+import { sendResponse } from "../../utils/utils";
 
 // post controller
-export function createNotePostController(req: Request, res: Response) {
+export async function createNotePostController(req: Request, res: Response) {
   const { noteTitle, noteTags, noteDescription } = req.body;
   if (!noteTitle || !noteTags || !noteDescription) {
-    res.json({
-      status: 400,
-      message: ERROR_MESSAGES.NOTE_DATA_ERROR,
-    });
+    return sendResponse(res, 300, ERROR_MESSAGES.NOTE_DATA_ERROR);
   } else if (typeof noteTitle !== "string" || typeof noteDescription !== "string" || !Array.isArray(noteTags)) {
-    res.json({
-      status: 400,
-      message: ERROR_MESSAGES.NOTE_DATA_INVALID_ERROR,
-    });
+    return sendResponse(res, 300, ERROR_MESSAGES.NOTE_DATA_INVALID_ERROR);
   } else if (noteTitle.length < 20 || noteTags.length < 1 || noteDescription.length < 100) {
-    res.json({
-      status: 400,
-      message: ERROR_MESSAGES.NOTE_DATA_LENGTH_ERROR,
-    });
+    return sendResponse(res, 300, ERROR_MESSAGES.NOTE_DATA_LENGTH_ERROR);
   }
-  console.log(req.body, "here is the req.body");
-
-  res.json({
-    status: 200,
-    message: SUCCESS_MESSAGES.NOTE_CREATED,
-  });
+  // create the note in store
+  const response = await createNote(req.body);
+  if (!response) {
+    return sendResponse(res, 500, ERROR_MESSAGES.FAILED_ERROR);
+  }
+  return sendResponse(res, 200, SUCCESS_MESSAGES.NOTE_CREATED);
 }

@@ -11,8 +11,7 @@ export default async function createNotes(noteTitle: string, noteTags: string[],
       noteDescription,
     });
     const data = response.data;
-    console.log(data);
-    if (data.status !== 200) {
+    if (data.statusCode !== 200) {
       toast.error(ERROR_MESSAGES.NOTE_DATA_INVALID_ERROR);
       return false;
     }

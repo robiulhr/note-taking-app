@@ -5,7 +5,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import { useNavigate } from "react-router-dom";
-
+import { IconButton } from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
 export default function Nav() {
   const navigate = useNavigate();
   return (
@@ -23,6 +24,9 @@ export default function Nav() {
               Notes
             </Typography>
           </Box>
+          <IconButton aria-label="delete" size="large">
+            <SettingsIcon className="text-white" fontSize="inherit" />
+          </IconButton>
         </Toolbar>
       </Container>
     </AppBar>

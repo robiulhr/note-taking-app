@@ -4,13 +4,8 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 
-//Importing .env validation
-import validateEnv from "@utils/validateEnv";
-
 //App Varaibles
 dotenv.config();
-
-validateEnv();
 
 //intializing the express app
 const app = express();
