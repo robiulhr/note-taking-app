@@ -31,10 +31,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-export default function SearchForm() {
+export default function SearchForm({ className }: { className: string }) {
   return (
     <>
-      <Search className="relative ml-0 w-[100%]">
+      <Search className={`relative ml-0 ${className}`}>
         <SearchIconWrapper className="h-[100%] absolute pointer-events-none flex items-center justify-center">
           <SearchIcon />
         </SearchIconWrapper>

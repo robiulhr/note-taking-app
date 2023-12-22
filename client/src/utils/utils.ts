@@ -4,3 +4,7 @@ export async function wait(timeInMS: number) {
     setTimeout(resolve, timeInMS);
   }).then(() => console.log("waiting finished."));
 }
+
+export function getPlainText(htmlString: string, length: number) {
+  return htmlString.replace(/<[^>]+>/g, "").slice(0, length || -1);
+}

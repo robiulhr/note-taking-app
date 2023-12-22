@@ -5,4 +5,5 @@ export const ERROR_MESSAGES = {
   NOTE_TAGS_ERROR: "Please, select atleast a tag for the note.",
   NOTE_DESCRIPTION_ERROR: "Please, provide note description.",
   INTERNAL_ERROR: "Something went wrong.",
+  ALL_NOTES_READ_ERROR: "Failed to get all notes.",
 };

@@ -7,12 +7,20 @@ import Create from "./pages/create";
 import Layout from "./layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ErrorBoundry from "./errorBoundary/ErrorBoundry";
 
 const router = createBrowserRouter([
   {
-    element: <Layout />,
+    element: (
+      <ErrorBoundry>
+        <Layout />
+      </ErrorBoundry>
+    ),
     children: [
-      { path: "/", element: <Home /> },
+      {
+        path: "/",
+        element: <Home />,
+      },
       { path: "/create", element: <Create /> },
     ],
   },
@@ -20,11 +28,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <StyledEngineProvider injectFirst>
-      {/* Your component tree. Now you can override Material UI's styles. */}
-      <ToastContainer position="top-center" />
-      <RouterProvider router={router} />
-    </StyledEngineProvider>
+    <ErrorBoundry>
+      <StyledEngineProvider injectFirst>
+        {/* Your component tree. Now you can override Material UI's styles. */}
+        <ToastContainer position="top-center" />
+        <RouterProvider router={router} />
+      </StyledEngineProvider>
+    </ErrorBoundry>
   );
 }
 

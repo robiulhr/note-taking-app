@@ -92,9 +92,9 @@ export default function NoteForm({ noteData, noteHandlers, pageTitle, btnText }:
     // stop loading
     setLoading(false);
     resetNoteErrors();
-    resetNoteValues();
     if (!response) return;
     toast.success(SUCCESS_MESSAGES.NOTE_CREATED);
+    resetNoteValues();
   }
   return (
     <Paper className="my-6 p-10">

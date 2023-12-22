@@ -40,3 +40,25 @@ export const createNote = async (note: NoteType): Promise<string> => {
   });
   return message;
 };
+
+interface readAllNotesReturn {
+  data: object[];
+  message: string;
+}
+
+export const readAllNotes = async (): Promise<readAllNotesReturn> => {
+  let message = "";
+  let data: object[] = [];
+  await jsonReader(NOTES_STORE, async (err, notes) => {
+    if (err) {
+      console.log("Error reading notes", err);
+      return;
+    }
+    if (notes === undefined) {
+      notes = [];
+    }
+    data = notes;
+    message = "success";
+  });
+  return { data: data, message };
+};
