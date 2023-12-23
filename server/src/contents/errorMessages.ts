@@ -5,4 +5,5 @@ export const ERROR_MESSAGES = {
   FAILED_ERROR: "Something went wrong.",
   ALL_NOTES_READ_ERROR: "Failed, to read all notes",
   NOTE_READ_ERROR: "Failed to get the note",
+  NOTE_DELETE_ERROR: "Failded to delete the note.",
 };

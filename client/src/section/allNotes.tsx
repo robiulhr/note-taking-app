@@ -16,7 +16,9 @@ export default function AllNotes() {
   const [allNotes, setAllNotes] = useState<noteType[]>([]);
   const [loading, setLoading] = useState(false);
   const { showBoundary } = useErrorBoundary();
-
+  function deleteNoteOnUi(noteId: string) {
+    setAllNotes(allNotes.filter((ele) => ele.id !== noteId));
+  }
   useEffect(() => {
     async function fetchAllNotes() {
       try {
@@ -56,7 +58,7 @@ export default function AllNotes() {
         ) : (
           <Box className="m-3 p-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
             {allNotes.map((ele) => {
-              return <NoteCart key={ele.noteTitle + ele.id} id={ele.id} noteTitle={ele.noteTitle} noteDescription={ele.noteDescription} noteTags={ele.noteTags} />;
+              return <NoteCart key={ele.noteTitle + ele.id} id={ele.id} noteTitle={ele.noteTitle} noteDescription={ele.noteDescription} noteTags={ele.noteTags} deleteNoteOnUi={deleteNoteOnUi} />;
             })}
           </Box>
         )}

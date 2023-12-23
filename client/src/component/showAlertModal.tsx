@@ -1,7 +1,9 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useState } from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { wait } from "../utils/utils";
 
 type ShowAlertModalPropsType = {
   alertTitle: string;
@@ -13,6 +15,14 @@ type ShowAlertModalPropsType = {
 };
 
 export default function ShowAlertModal({ alertTitle, alertDescription, showAlert, alertCloseHandler, doAction, btnText }: ShowAlertModalPropsType) {
+  const [loading, setLoading] = useState(false);
+  async function runActionHandler() {
+    setLoading(true);
+    await wait(2000);
+    doAction();
+    setLoading(false);
+    alertCloseHandler();
+  }
   return (
     <Modal open={showAlert} onClose={alertCloseHandler} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
       <Box
@@ -35,12 +45,12 @@ export default function ShowAlertModal({ alertTitle, alertDescription, showAlert
         <Typography id="modal-modal-title" variant="h6" component="h2">
           {alertTitle}
         </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <Typography id="modal-modal-description" sx={{ marginTop: "10px", marginBottom: "10px" }}>
           {alertDescription}
         </Typography>
-        <Button variant="contained" sx={{ marginTop: "10px", width: "40px" }} onClick={doAction}>
+        <LoadingButton loading={loading} onClick={runActionHandler} variant="contained" className="mt-5">
           {btnText}
-        </Button>
+        </LoadingButton>
       </Box>
     </Modal>
   );

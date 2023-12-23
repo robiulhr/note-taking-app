@@ -8,4 +8,5 @@ export const ERROR_MESSAGES = {
   ALL_NOTES_READ_ERROR: "Failed to get all notes.",
   NOTE_READ_ERROR: "Failed to get the note",
   NO_DATA_FOUND_ERROR: "No, data found",
+  NOTE_DELETE_ERROR: "Failed to delete the note.",
 };

@@ -1,4 +1,4 @@
-import { Box, Divider, IconButton, Paper, Typography } from "@mui/material";
+import { Box, Divider, Paper, Typography } from "@mui/material";
 import { useState } from "react";
 import { getPlainText } from "../utils/utils";
 import { Link } from "react-router-dom";
@@ -11,16 +11,17 @@ type noteCartPropsType = {
   noteTitle: string;
   noteDescription: string;
   noteTags: string[];
+  deleteNoteOnUi: (noteId: string) => void;
 };
 
-export default function NoteCart({ key, id, noteTitle, noteDescription, noteTags }: noteCartPropsType) {
+export default function NoteCart({ key, id, noteTitle, noteDescription, noteTags, deleteNoteOnUi }: noteCartPropsType) {
   const { containerRef, contentRef, isOverflowing: isDescriptionOverflowing } = useOverflowCheck();
   const [slicedDescription, setSlicedDescription] = useState(getPlainText(noteDescription, 250));
 
   return (
     <Box key={key} className="m-2 flex items-center flex-col justify-evenly h-[300px] p-2" component={Paper}>
       <Box className="w-[100%] h-[35px] flex flex-row justify-between items-center">
-        <NoteHeading noteId={id} noteTitle={noteTitle} titleComponent="h3" titleClasses="text-start text-bold text-xl" buttonClasses="" />
+        <NoteHeading noteId={id} noteTitle={noteTitle} titleComponent="h3" titleClasses="text-start text-bold text-xl" buttonClasses="" deleteNoteOnUi={deleteNoteOnUi} />
       </Box>
       <Divider className="w-[100%]" />
       <Box className="h-[200px] line-clamp-[7] p-2 w-[100%]" ref={containerRef}>

@@ -121,7 +121,7 @@ export default function NoteForm({ actionType, noteId, noteData, noteHandlers, p
   }
 
   async function updateNoteHandler() {
-    // await updateNote();
+    await updateNote();
   }
 
   async function formSubmitHandler(e: SyntheticEvent) {
@@ -132,14 +132,7 @@ export default function NoteForm({ actionType, noteId, noteData, noteHandlers, p
   }
   return (
     <>
-      <ShowAlertModal
-        alertTitle="Do you wanna update the note?"
-        alertDescription="Are you sure? This will change current value of this note!"
-        showAlert={showAlert}
-        alertCloseHandler={alertCloseHandler}
-        doAction={updateNoteHandler}
-        btnText="Yes!"
-      />
+      <ShowAlertModal alertTitle="Do you wanna update the note?" alertDescription="Are you sure? This will change current value of this note!" showAlert={showAlert} alertCloseHandler={alertCloseHandler} doAction={updateNoteHandler} btnText="Yes!" />
       <Paper className="my-6 p-10">
         <Typography className="text-start text-bolt text-xl w-[100%]">{pageTitle}</Typography>
         <Divider />
