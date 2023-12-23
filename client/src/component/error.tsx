@@ -5,10 +5,11 @@ type ErrorCompProps = {
   subTitle?: string;
   description?: string;
   needButton?: boolean;
+  className?: string;
 };
-export default function ErrorComp({ title, subTitle, description, needButton }: ErrorCompProps) {
+export default function ErrorComp({ title, subTitle, description, needButton, className }: ErrorCompProps) {
   return (
-    <section className="p-[0]">
+    <section className={`p-[0] ${className}`}>
       <div className="container">
         <div className="row">
           <div className="">

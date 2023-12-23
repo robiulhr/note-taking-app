@@ -6,4 +6,6 @@ export const ERROR_MESSAGES = {
   NOTE_DESCRIPTION_ERROR: "Please, provide note description.",
   INTERNAL_ERROR: "Something went wrong.",
   ALL_NOTES_READ_ERROR: "Failed to get all notes.",
+  NOTE_READ_ERROR: "Failed to get the note",
+  NO_DATA_FOUND_ERROR: "No, data found",
 };

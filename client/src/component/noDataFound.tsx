@@ -1,5 +1,5 @@
 import ErrorComp from "./error";
 
-export default function NoDataFound() {
-  return <ErrorComp title="No Data Found" />;
+export default function NoDataFound({ className }: { className?: string }) {
+  return <ErrorComp title="No Data Found" className={className} />;
 }

@@ -56,7 +56,7 @@ export default function AllNotes() {
         ) : (
           <Box className="m-3 p-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
             {allNotes.map((ele) => {
-              return <NoteCart key={ele.noteTitle} noteTitle={ele.noteTitle} noteDescription={ele.noteDescription} noteTags={ele.noteTags} />;
+              return <NoteCart key={ele.noteTitle + ele.id} id={ele.id} noteTitle={ele.noteTitle} noteDescription={ele.noteDescription} noteTags={ele.noteTags} />;
             })}
           </Box>
         )}

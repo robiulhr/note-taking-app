@@ -2,17 +2,11 @@ import fs from "fs/promises";
 import rootDir from "app-root-path";
 import { v4 as uuidv4 } from "uuid";
 import { jsonReader } from "./utils";
+import { noteType } from "../types/types";
 
 const NOTES_STORE = rootDir.resolve("/store/notes.json");
 
-type NoteType = {
-  id?: string;
-  title: string;
-  tags: string[];
-  description: string;
-};
-
-export const createNote = async (note: NoteType): Promise<string> => {
+export const createNote = async (note: noteType): Promise<string> => {
   const noteId = uuidv4();
   note.id = noteId;
   let message = "";
@@ -46,7 +40,7 @@ interface readAllNotesReturn {
   message: string;
 }
 
-export const readAllNotes = async (): Promise<readAllNotesReturn> => {
+export const readNotes = async (id?: string): Promise<readAllNotesReturn> => {
   let message = "";
   let data: object[] = [];
   await jsonReader(NOTES_STORE, async (err, notes) => {
@@ -57,7 +51,11 @@ export const readAllNotes = async (): Promise<readAllNotesReturn> => {
     if (notes === undefined) {
       notes = [];
     }
-    data = notes;
+    if (id as string) {
+      data = notes.filter((ele) => ele.id === id);
+    } else {
+      data = notes;
+    }
     message = "success";
   });
   return { data: data, message };

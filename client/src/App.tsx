@@ -8,6 +8,7 @@ import Layout from "./layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorBoundry from "./errorBoundary/ErrorBoundry";
+import Note from "./pages/note";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       { path: "/create", element: <Create /> },
+      { path: "/notes/:noteId", element: <Note /> },
     ],
   },
 ]);

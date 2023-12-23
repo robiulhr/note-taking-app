@@ -41,4 +41,4 @@ export default function TagFilter(props: TagFilterProps) {
 }
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = ["The Shawshank Redemption", "The Godfather", "The Godfather: Part II", "The Dark Knight", "12 Angry Men", "Schindler's List", "Pulp Fiction"];
+const top100Films = ["The Shawshank Redemption","Hello world","Welcome note","Test note","Programming Note", "The Godfather", "The Godfather: Part II", "The Dark Knight", "12 Angry Men", "Schindler's List", "Pulp Fiction"];

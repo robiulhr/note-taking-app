@@ -4,4 +4,5 @@ export const ERROR_MESSAGES = {
   NOTE_DATA_LENGTH_ERROR: "Your data must be longer than the lowest limit.",
   FAILED_ERROR: "Something went wrong.",
   ALL_NOTES_READ_ERROR: "Failed, to read all notes",
+  NOTE_READ_ERROR: "Failed to get the note",
 };
