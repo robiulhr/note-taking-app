@@ -60,3 +60,40 @@ export const readNotes = async (id?: string): Promise<readAllNotesReturn> => {
   });
   return { data: data, message };
 };
+
+export const updateNote = async (id: string, updatedNote: noteType): Promise<readAllNotesReturn> => {
+  const { noteTitle, noteDescription, noteTags } = updatedNote;
+  let message = "";
+  let data: object[] = [];
+  await jsonReader(NOTES_STORE, async (err, notes) => {
+    if (err) {
+      console.log("Error reading notes", err);
+      return;
+    }
+    if (notes === undefined) {
+      notes = [];
+    }
+    if (id as string) {
+      const noteIndex = notes.findIndex((ele) => ele.id === id);
+      notes[noteIndex].noteTitle = noteTitle;
+      notes[noteIndex].noteDescription = noteDescription;
+      notes[noteIndex].noteTags = noteTags;
+      // write the updated notes array to the store
+      await fs
+        .writeFile(NOTES_STORE, JSON.stringify(notes))
+        .then(() => {
+          message = "success";
+        })
+        .catch((err) => {
+          if (err) {
+            console.log("Error writing notes", err);
+          }
+        });
+      // set the updated note array to the return data
+      data = [notes[noteIndex]];
+    } else {
+      return;
+    }
+  });
+  return { data: data, message };
+};

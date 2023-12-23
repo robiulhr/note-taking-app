@@ -2,7 +2,7 @@ import axios from "axios";
 import API_LINK, { API_ROUTES } from "../apiMap";
 import { toast } from "react-toastify";
 import { ERROR_MESSAGES } from "../contents/errorMessages";
-export default async function createNotes(noteTitle: string, noteTags: string[], noteDescription: string) {
+export default async function createNote(noteTitle: string, noteTags: string[], noteDescription: string) {
   const createNoteLink = `${API_LINK}/${API_ROUTES.CREATE_NOTE}`;
   try {
     const response = await axios.post(createNoteLink, {

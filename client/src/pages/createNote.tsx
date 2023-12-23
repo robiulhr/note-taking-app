@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NoteForm from "../component/noteForm";
 
-export default function Create() {
+export default function CreateNote() {
   const [noteTitle, setNoteTitle] = useState("");
   /**
    * here the <string[]> is used to make clear the dataype of children of this array.
@@ -10,5 +10,5 @@ export default function Create() {
   const [noteDescription, setNoteDescription] = useState("");
   const noteData = { noteTitle, noteTags, noteDescription };
   const noteHandlers = { setNoteTitle, setNoteTags, setNoteDescription };
-  return <NoteForm noteHandlers={noteHandlers} noteData={noteData} pageTitle={"Create New Note"} btnText={"Save Note"} />;
+  return <NoteForm actionType="create" noteHandlers={noteHandlers} noteData={noteData} pageTitle={"Create New Note"} btnText={"Save Note"} />;
 }

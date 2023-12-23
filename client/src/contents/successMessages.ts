@@ -4,4 +4,5 @@ export const SUCCESS_MESSAGES = {
   NOTE_DELETED: "Note, deleted successfully.",
   ALL_NOTES_READ: "Fatched, all notes successfully.",
   NOTE_READ: "Fatched the note successfully.",
+  NOTE_UPDATE: "Note updated successfully.",
 };

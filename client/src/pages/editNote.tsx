@@ -1,26 +1,27 @@
-import { Box, Paper, Typography, IconButton, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
+import NoteForm from "../component/noteForm";
+import { useParams } from "react-router-dom";
 import { wait } from "../utils/utils";
 import getNote from "../apiActions/getNote";
-import { ERROR_MESSAGES } from "../contents/errorMessages";
-import { toast } from "react-toastify";
-import { useErrorBoundary } from "react-error-boundary";
-import { useParams } from "react-router-dom";
-import parse from "html-react-parser";
-import TagsCart from "../component/tagsCart";
-import { FullPageLoading } from "../component/fullPageLoading";
 import { noteType } from "../types/types";
+import { toast } from "react-toastify";
+import { ERROR_MESSAGES } from "../contents/errorMessages";
+import { Box, Paper } from "@mui/material";
+import { FullPageLoading } from "../component/fullPageLoading";
+import { useErrorBoundary } from "react-error-boundary";
 import NoDataFound from "../component/noDataFound";
-import NoteHeading from "../component/noteHeading";
 
-export default function Note() {
-  const [noteTitle, setNoteTitle] = useState<string>("");
+export default function EditNote() {
+  const [noteTitle, setNoteTitle] = useState("");
   const [noteTags, setNoteTags] = useState<string[]>([]);
   const [noteDescription, setNoteDescription] = useState("");
+  const noteData = { noteTitle, noteTags, noteDescription };
+  const noteHandlers = { setNoteTitle, setNoteTags, setNoteDescription };
   const [loading, setLoading] = useState(false);
   const [noData, setNoData] = useState(false);
   const { showBoundary } = useErrorBoundary();
   const { noteId } = useParams();
+
   useEffect(() => {
     async function fetchNote() {
       try {
@@ -44,19 +45,17 @@ export default function Note() {
     fetchNote();
   }, []);
   return (
-    <Box className="p-5 my-8" component={Paper}>
-      {noData ? (
-        <NoDataFound className="min-h-[615px] flex items-center justify-center" />
-      ) : (
-        <Box>
-          <Box className="py-2 px-3 flex flex-row items-center justify-between">
-            <NoteHeading noteId={noteId as string} noteTitle={noteTitle} titleComponent="h1" titleClasses="text-start text-bold text-2xl" buttonClasses="ml-4" />
-          </Box>
-          <Divider />
-          <Box className="p-5 min-h-[500px] text-start">{loading ? <FullPageLoading className="min-h-[450px]" /> : parse(noteDescription)}</Box>
-          <Divider />
-          <TagsCart noteTags={noteTags} />
+    <Box>
+      {loading ? (
+        <Box component={Paper} className="my-10">
+          <FullPageLoading className="min-h-[755px]" />
         </Box>
+      ) : noData ? (
+        <Box component={Paper} className="my-10">
+          <NoDataFound className="min-h-[755px] flex items-center justify-center" />
+        </Box>
+      ) : (
+        <NoteForm actionType="update" noteId={noteId} noteHandlers={noteHandlers} noteData={noteData} pageTitle={"Edit Note"} btnText={"Update Note"} />
       )}
     </Box>
   );

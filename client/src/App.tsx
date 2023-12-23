@@ -3,12 +3,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import { StyledEngineProvider } from "@mui/material/styles";
 import Home from "./pages/home";
-import Create from "./pages/create";
+import CreateNote from "./pages/createNote";
 import Layout from "./layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorBoundry from "./errorBoundary/ErrorBoundry";
 import Note from "./pages/note";
+import EditNote from "./pages/editNote";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +23,9 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      { path: "/create", element: <Create /> },
+      { path: "/create", element: <CreateNote /> },
       { path: "/notes/:noteId", element: <Note /> },
+      { path: "/editnote/:noteId", element: <EditNote /> },
     ],
   },
 ]);
