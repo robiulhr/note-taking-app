@@ -1,6 +1,6 @@
 import { Box, Divider, Paper, TextField, Typography } from "@mui/material";
 import RichTextEditor from "../component/richTextEditor";
-import TagFilter from "./tagFilter";
+import TagFilter from "./filter/tagFilter";
 import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
 import { ERROR_MESSAGES } from "../contents/errorMessages";
 import { toast } from "react-toastify";

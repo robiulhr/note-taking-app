@@ -1,5 +1,5 @@
 import { Box, Paper } from "@mui/material";
-import TagFilter from "../component/tagFilter";
+import TagFilter from "../component/filter/tagFilter";
 import SearchForm from "../component/search";
 import { forwardRef, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
