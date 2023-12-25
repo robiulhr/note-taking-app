@@ -2,7 +2,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
-import ShowAlertModal from "./showAlertModal";
+import ShowAlertModal from "./modal/showAlertModal";
 import { useState } from "react";
 import deleteNote from "../apiActions/deleteNote";
 

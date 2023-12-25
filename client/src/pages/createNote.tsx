@@ -1,5 +1,5 @@
 import { useState } from "react";
-import NoteForm from "../component/noteForm";
+import NoteForm from "../component/form/noteForm";
 
 export default function CreateNote() {
   const [noteTitle, setNoteTitle] = useState("");

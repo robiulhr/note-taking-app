@@ -1,13 +1,11 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { useTheme } from "@mui/material/styles";
-import CloseIcon from "@mui/icons-material/Close";
-import DoneIcon from "@mui/icons-material/Done";
 import Autocomplete from "@mui/material/Autocomplete";
 import InputBase from "@mui/material/InputBase";
-import Box from "@mui/material/Box";
 import PopperComponent from "./poperComponent";
 import { labels } from "./demoData";
 import { tagType } from "../../../types/types";
+import TagOption from "./tagOption";
 type AutoCompleteComponentPropsType = {
   handleClose: () => void;
   value: tagType[];
@@ -33,56 +31,14 @@ export default function AutoCompleteComponent({ handleClose, value, pendingValue
         }
         setPendingValue(newValue);
       }}
+      freeSolo // this is used to make the create button workable without loosing the searchValue
       disableCloseOnSelect
       PopperComponent={(props) => {
-        return PopperComponent(props);
+        return PopperComponent(props, searchValue);
       }}
       renderTags={() => null}
       noOptionsText="No labels"
-      renderOption={(props, option, { selected }) => {
-        return (
-          <li {...props}>
-            <Box
-              component={DoneIcon}
-              sx={{ width: 17, height: 17, mr: "5px", ml: "-2px" }}
-              style={{
-                visibility: selected ? "visible" : "hidden",
-              }}
-            />
-            <Box
-              component="span"
-              sx={{
-                width: 14,
-                height: 14,
-                flexShrink: 0,
-                borderRadius: "3px",
-                mr: 1,
-                mt: "2px",
-              }}
-              style={{ backgroundColor: option.color }}
-            />
-            <Box
-              sx={{
-                flexGrow: 1,
-                "& span": {
-                  color: theme.palette.mode === "light" ? "#586069" : "#8b949e",
-                },
-              }}
-            >
-              {option.name}
-              <br />
-              <span>{option.description}</span>
-            </Box>
-            <Box
-              component={CloseIcon}
-              sx={{ opacity: 0.6, width: 18, height: 18 }}
-              style={{
-                visibility: selected ? "visible" : "hidden",
-              }}
-            />
-          </li>
-        );
-      }}
+      renderOption={TagOption}
       options={[...labels].sort((a, b) => {
         // Display the selected labels first.
         let ai = value.indexOf(a);

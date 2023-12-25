@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import NoteForm from "../component/noteForm";
+import NoteForm from "../component/form/noteForm";
 import { useParams } from "react-router-dom";
 import { wait } from "../utils/utils";
 import getNote from "../apiActions/getNote";
@@ -7,9 +7,9 @@ import { noteType } from "../types/types";
 import { toast } from "react-toastify";
 import { ERROR_MESSAGES } from "../contents/errorMessages";
 import { Box, Paper } from "@mui/material";
-import { FullPageLoading } from "../component/fullPageLoading";
+import { FullPageLoading } from "../component/loader/fullPageLoading";
 import { useErrorBoundary } from "react-error-boundary";
-import NoDataFound from "../component/noDataFound";
+import NoDataFound from "../component/error/noDataFound";
 
 export default function EditNote() {
   const [noteTitle, setNoteTitle] = useState("");

@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { wait } from "../utils/utils";
+import { wait } from "../../utils/utils";
 
 type ShowAlertModalPropsType = {
   alertTitle: string;

@@ -1,15 +1,16 @@
 import { Box, Button, Typography } from "@mui/material";
-import NoDataFound from "../component/noDataFound";
+import NoDataFound from "../component/error/noDataFound";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getAllNotes from "../apiActions/getAllNotes";
-import { FullPageLoading } from "../component/fullPageLoading";
+import { FullPageLoading } from "../component/loader/fullPageLoading";
 import { noteType } from "../types/types";
 import { wait } from "../utils/utils";
 import { useErrorBoundary } from "react-error-boundary";
 import { ERROR_MESSAGES } from "../contents/errorMessages";
 import { toast } from "react-toastify";
-import NoteCart from "../component/noteCart";
+import NoteCart from "../component/cart/noteCart";
+import PaginationComp from "../component/paginationComp";
 
 export default function AllNotes() {
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ export default function AllNotes() {
           </Box>
         )}
       </Box>
+      <PaginationComp />
     </Box>
   );
 }

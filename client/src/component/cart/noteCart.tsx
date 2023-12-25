@@ -1,10 +1,10 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 import { useState } from "react";
-import { getPlainText } from "../utils/utils";
+import { getPlainText } from "../../utils/utils";
 import { Link } from "react-router-dom";
-import { useOverflowCheck } from "../customHooks/useOverflowCheck";
+import { useOverflowCheck } from "../../customHooks/useOverflowCheck";
 import TagsCart from "./tagsCart";
-import NoteHeading from "./noteHeading";
+import NoteHeading from "../noteHeading";
 type noteCartPropsType = {
   key: string;
   id: string;

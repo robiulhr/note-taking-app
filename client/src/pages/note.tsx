@@ -7,10 +7,10 @@ import { toast } from "react-toastify";
 import { useErrorBoundary } from "react-error-boundary";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
-import TagsCart from "../component/tagsCart";
-import { FullPageLoading } from "../component/fullPageLoading";
+import TagsCart from "../component/cart/tagsCart";
+import { FullPageLoading } from "../component/loader/fullPageLoading";
 import { noteType } from "../types/types";
-import NoDataFound from "../component/noDataFound";
+import NoDataFound from "../component/error/noDataFound";
 import NoteHeading from "../component/noteHeading";
 
 export default function Note() {

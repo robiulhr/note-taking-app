@@ -1,16 +1,16 @@
 import { Box, Divider, Paper, TextField, Typography } from "@mui/material";
-import RichTextEditor from "../component/richTextEditor";
-import TagFilter from "./filter/tagFilter";
+import RichTextEditor from "../richTextEditor";
+import TagFilter from "../filter/tagFilter";
 import { ChangeEvent, Dispatch, SetStateAction, SyntheticEvent, useState } from "react";
-import { ERROR_MESSAGES } from "../contents/errorMessages";
+import { ERROR_MESSAGES } from "../../contents/errorMessages";
 import { toast } from "react-toastify";
-import createNote from "../apiActions/createNote";
+import createNote from "../../apiActions/createNote";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { wait } from "../utils/utils";
-import { SUCCESS_MESSAGES } from "../contents/successMessages";
-import editNote from "../apiActions/editNote";
+import { wait } from "../../utils/utils";
+import { SUCCESS_MESSAGES } from "../../contents/successMessages";
+import editNote from "../../apiActions/editNote";
 import { useNavigate } from "react-router-dom";
-import ShowAlertModal from "./showAlertModal";
+import ShowAlertModal from "../modal/showAlertModal";
 
 interface NoteFormProps {
   actionType: "create" | "update";
