@@ -1,5 +1,5 @@
-import { ReactNode, useState } from "react";
-import { useTheme, styled } from "@mui/material/styles";
+import { ChangeEvent, MouseEvent, MouseEventHandler, ReactNode, useRef, useState } from "react";
+import { useTheme } from "@mui/material/styles";
 import Popper from "@mui/material/Popper";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import CloseIcon from "@mui/icons-material/Close";
@@ -8,138 +8,134 @@ import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
 import InputBase from "@mui/material/InputBase";
 import Box from "@mui/material/Box";
 import { Button, ListItem, Typography } from "@mui/material";
-import { useOverflowCheck } from "../customHooks/useOverflowCheck";
-
-const StyledAutocompletePopper = styled("div")(({ theme }) => ({
-  [`& .${autocompleteClasses.paper}`]: {
-    boxShadow: "none",
-    margin: 0,
-    color: "inherit",
-    fontSize: 13,
-  },
-  [`& .${autocompleteClasses.listbox}`]: {
-    backgroundColor: theme.palette.mode === "light" ? "#fff" : "#1c2128",
-    padding: 0,
-    [`& .${autocompleteClasses.option}`]: {
-      minHeight: "auto",
-      alignItems: "flex-start",
-      padding: 8,
-      borderBottom: `1px solid  ${theme.palette.mode === "light" ? " #eaecef" : "#30363d"}`,
-      '&[aria-selected="true"]': {
-        backgroundColor: "transparent",
-      },
-      [`&.${autocompleteClasses.focused}, &.${autocompleteClasses.focused}[aria-selected="true"]`]: {
-        backgroundColor: theme.palette.action.hover,
-      },
-    },
-  },
-  [`&.${autocompleteClasses.popperDisablePortal}`]: {
-    position: "relative",
-  },
-}));
 
 function PopperComponent(props: PopperComponentpropTypes) {
-  const { children, ...other } = props;
+  const { children, anchorEl, ...other } = props;
+  const searchValue = anchorEl.querySelector("input").value as string;
+  const theme = useTheme();
   return (
-    <StyledAutocompletePopper {...other}>
+    <Box
+      sx={{
+        [`& .${autocompleteClasses.paper}`]: {
+          boxShadow: "none",
+          margin: 0,
+          color: "inherit",
+          fontSize: 13,
+        },
+        [`& .${autocompleteClasses.listbox}`]: {
+          backgroundColor: theme.palette.mode === "light" ? "#fff" : "#1c2128",
+          padding: 0,
+          [`& .${autocompleteClasses.option}`]: {
+            minHeight: "auto",
+            alignItems: "flex-start",
+            padding: 1,
+            borderBottom: `1px solid  ${theme.palette.mode === "light" ? " #eaecef" : "#30363d"}`,
+            '&[aria-selected="true"]': {
+              backgroundColor: "transparent",
+            },
+            [`&.${autocompleteClasses.focused}, &.${autocompleteClasses.focused}[aria-selected="true"]`]: {
+              backgroundColor: theme.palette.action.hover,
+            },
+          },
+        },
+        [`&.${autocompleteClasses.popperDisablePortal}`]: {
+          position: "relative",
+        },
+      }}
+      {...other}
+    >
       {children}
       <Box>
-        <ListItem>Hello world</ListItem>
+        <ListItem>+ Create Tag: {`"${searchValue}"`}</ListItem>
       </Box>
-    </StyledAutocompletePopper>
+    </Box>
   );
 }
 
 type PopperComponentpropTypes = {
   children: ReactNode;
+  anchorEl: ReactNode;
 };
 
 export default function TagFilter() {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const anchorEl = useRef<HTMLElement>(null);
+  const [open, setOpen] = useState(false);
   const [value, setValue] = useState([labels[1], labels[11]]);
   const [pendingValue, setPendingValue] = useState(value);
-  const { containerRef, contentRef, isOverflowing } = useOverflowCheck();
   const theme = useTheme();
-  const handleClick = (event) => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     setPendingValue(value);
-    setAnchorEl(event.currentTarget);
+    setOpen(!open);
   };
-
   const handleClose = () => {
     setValue(pendingValue);
-    if (anchorEl) {
-      anchorEl.focus();
+    setOpen(!open);
+    if (anchorEl.current) {
+      anchorEl.current.focus();
     }
-    setAnchorEl(null);
   };
-  const handleClear = (event) => {
+  const handleClear: MouseEventHandler<HTMLButtonElement> = (event) => {
     setValue([]);
   };
-  const handleDelete = (event, index) => {
+  const handleDelete = (event: MouseEvent<SVGElement>, index: number) => {
     event.stopPropagation();
     setValue(value.filter((ele, ind) => ind !== index));
   };
-  const open = Boolean(anchorEl);
   const id = open ? "github-label" : undefined;
 
   return (
     <>
-      <Box sx={{ width: 300, fontSize: 13 }}>
-        <Box ref={setAnchorEl} ref={containerRef} className=" w-[300px] h-[60px] rounded-sm bg-white p-1 flex flex-wrap overflow-scroll overflow-x-hidden" sx={{}}>
-          <Box ref={contentRef} className="w-[100%] flex items-center justify-between flex-row">
-            <Box className="w-[250px] grid grid-cols-2 gap-1">
-              {value.length <= 0 ? (
-                <Typography className="w-[100%] h-[50px] flex items-center p-2 text-start">Types</Typography>
-              ) : (
-                value.map((option, index) => (
-                  <Box
-                    sx={{
-                      "& span": { overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" },
-                      "& svg": { fontSize: "20px", cursor: "pointer", padding: "4px" },
+      <Box ref={anchorEl} className="h-[60px] w-[300px] text-[13px]">
+        <Box className="w-[100%] rounded-sm bg-white p-1 flex items-center h-[100%] justify-between flex-row">
+          <Box className="w-[250px] grid grid-cols-2 gap-1 h-[100%] overflow-scroll overflow-x-hidden">
+            {value.length <= 0 ? (
+              <Typography className="w-[100%] h-[50px] flex items-center p-2 text-start">Filter by Tags</Typography>
+            ) : (
+              value.map((option, index) => (
+                <Box
+                  sx={{
+                    "& span": { overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" },
+                    "& svg": { fontSize: "20px", cursor: "pointer", padding: "4px" },
+                  }}
+                  className="flex justify-between max-w-[100px] truncate items-center h-[24px] m-[2px] leading-3 bg-[#fafafa] border-1 rounded-sm box-content p-[0 4px 0 10px] outline-0 overflow-hidden"
+                >
+                  <span>{option.name}</span>
+                  <CloseIcon
+                    onClick={(e) => {
+                      handleDelete(e, index);
                     }}
-                    className="flex justify-between max-w-[100px] truncate items-center h-[24px] m-[2px] leading-3 bg-[#fafafa] border-1 rounded-sm box-content p-[0 4px 0 10px] outline-0 overflow-hidden"
-                  >
-                    <span>{option.name}</span>
-                    <CloseIcon
-                      onClick={(e) => {
-                        handleDelete(e, index);
-                      }}
-                    />
-                  </Box>
-                ))
-              )}
-            </Box>
-            <Box className={`h-[100%] w-[50px] flex ${isOverflowing ? "flex-col" : "flex-row"} items-center justify-center`}>
-              <Button className="text-2xl h-[50%] min-w-[20px] min-h-[20px]" onClick={handleClick}>
-                +
+                  />
+                </Box>
+              ))
+            )}
+          </Box>
+          <Box className={`h-[100%] w-[50px] flex flex-row items-center justify-center`}>
+            <Button className="text-2xl h-[50%] min-w-[20px] min-h-[20px]" onClick={handleClick}>
+              +
+            </Button>
+            {value.length > 0 && (
+              <Button className="text-md font-semibold h-[50%] min-w-[20px] min-h-[20px]" onClick={handleClear}>
+                x
               </Button>
-              {value.length > 0 && (
-                <Button className="text-md font-semibold h-[50%] min-w-[20px] min-h-[20px]" onClick={handleClear}>
-                  x
-                </Button>
-              )}
-            </Box>
+            )}
           </Box>
         </Box>
       </Box>
-      <Box
-        component={Popper}
-        sx={{ width: 300, zIndex: 30, bgcolor: "white", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", borderRadius: "3px", border: "1px solid #44443330" }}
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        placement="bottom-start"
-      >
+      <Box component={Popper} sx={{ width: 300, zIndex: 30, bgcolor: "white", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", borderRadius: "3px", border: "1px solid #44443330" }} id={id} open={open} anchorEl={anchorEl.current} placement="bottom-start">
         <ClickAwayListener onClickAway={handleClose}>
-          <div>
+          <div className="bg-red">
             <Box
               sx={{
                 borderBottom: `1px solid ${theme.palette.mode === "light" ? "#eaecef" : "#30363d"}`,
                 padding: "8px 10px",
                 fontWeight: 600,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              Apply labels to this pull request
+              <Typography>Tags</Typography>
+              <Button sx={{ minWidth: "15px", minHeight: "15px" }}>x</Button>
             </Box>
             <Autocomplete
               open
@@ -150,7 +146,7 @@ export default function TagFilter() {
                 }
               }}
               value={pendingValue}
-              onChange={(event, newValue, reason) => {
+              onChange={(event: ChangeEvent<{}>, newValue, reason) => {
                 if (event.type === "keydown" && event.key === "Backspace" && reason === "removeOption") {
                   return;
                 }
@@ -229,7 +225,7 @@ export default function TagFilter() {
                   ref={params.InputProps.ref}
                   inputProps={params.inputProps}
                   autoFocus
-                  placeholder="Filter labels"
+                  placeholder="Filter tags"
                 />
               )}
             />
