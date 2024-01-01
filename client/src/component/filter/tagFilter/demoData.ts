@@ -1,4 +1,3 @@
-// From https://github.com/abdonrd/github-labels
 export const labels = [
   {
     name: "good first issue",

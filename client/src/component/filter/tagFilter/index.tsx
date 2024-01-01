@@ -9,7 +9,6 @@ export default function TagFilter() {
   const [popUpOpen, setPopUpOpen] = useState(false);
   const [value, setValue] = useState([labels[1], labels[11]]);
   const [pendingValue, setPendingValue] = useState(value);
-  console.log("index page rerendered.");
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     setPendingValue(value);
     setPopUpOpen(!popUpOpen);

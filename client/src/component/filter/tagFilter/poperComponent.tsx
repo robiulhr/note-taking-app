@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode, RefObject, useContext, useEffect, useState } from "react";
+import { MouseEventHandler, ReactNode, RefObject, useContext, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { autocompleteClasses } from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
@@ -13,7 +13,6 @@ type PopperComponentpropTypes = {
 
 export default function PopperComponent(props: PopperComponentpropTypes) {
   const { children, anchorEl, ...other } = props;
-
   const theme = useTheme();
   const [showTagForm, setShowTagForm] = useState(false);
   const { searchValue } = useContext(TagSearchContext);
@@ -28,9 +27,6 @@ export default function PopperComponent(props: PopperComponentpropTypes) {
     e.stopPropagation();
     tagFormOpenHandler();
   };
-  useEffect(() => {
-    console.log(searchValue);
-  }, [searchValue]);
   return (
     <>
       <Box

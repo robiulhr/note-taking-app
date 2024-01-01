@@ -7,6 +7,7 @@ import { labels } from "./demoData";
 import { tagType } from "../../../types/types";
 import TagOption from "./tagOption";
 import { TagSearchContext } from "../../../context/tagSearchProvider";
+import { Box, CircularProgress } from "@mui/material";
 type AutoCompleteComponentPropsType = {
   handleClose: () => void;
   value: tagType[];
@@ -26,6 +27,11 @@ export default function AutoCompleteComponent({ handleClose, value, pendingValue
         }
       }}
       loading
+      loadingText={
+        <Box sx={{ width: "100%", minHeight: "200px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <CircularProgress color="inherit" />
+        </Box>
+      }
       value={pendingValue}
       onChange={(event: ChangeEvent<{}>, newValue, reason) => {
         if (event.type === "keydown" && event.key === "Backspace" && reason === "removeOption") {
