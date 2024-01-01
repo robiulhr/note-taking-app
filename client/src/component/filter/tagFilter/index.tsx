@@ -2,13 +2,7 @@ import { MouseEvent, MouseEventHandler, useRef, useState } from "react";
 import { labels } from "./demoData";
 import PopUpComponent from "./popUpComponent";
 import TagsMainInput from "./tagsMainInput";
-
-/**
- *
- * Todo
- * 1. when any of the child update the value which is provided from the parent by props drilling both parent and child get rerendered. (is there any solution to solve this?)
- * 2. when one tag get's selected the list of the popup gets navigated to the top (reason: may the component get's rerendered that's why this things happens.)
- */
+import TagSearchProvider from "../../../context/tagSearchProvider";
 
 export default function TagFilter() {
   const anchorEl = useRef<HTMLElement>(null);
@@ -37,8 +31,10 @@ export default function TagFilter() {
 
   return (
     <>
-      <TagsMainInput anchorEl={anchorEl} value={value} handleClear={handleClear} handleClick={handleClick} handleDelete={handleDelete} />
-      <PopUpComponent open={popUpOpen} anchorEl={anchorEl} handleClose={handleClose} value={value} pendingValue={pendingValue} setPendingValue={setPendingValue} />
+      <TagSearchProvider>
+        <TagsMainInput anchorEl={anchorEl} value={value} handleClear={handleClear} handleClick={handleClick} handleDelete={handleDelete} />
+        <PopUpComponent open={popUpOpen} anchorEl={anchorEl} handleClose={handleClose} value={value} pendingValue={pendingValue} setPendingValue={setPendingValue} />
+      </TagSearchProvider>
     </>
   );
 }

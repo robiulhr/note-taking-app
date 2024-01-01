@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useContext } from "react";
 import { useTheme } from "@mui/material/styles";
 import Autocomplete from "@mui/material/Autocomplete";
 import InputBase from "@mui/material/InputBase";
@@ -6,6 +6,7 @@ import PopperComponent from "./poperComponent";
 import { labels } from "./demoData";
 import { tagType } from "../../../types/types";
 import TagOption from "./tagOption";
+import { TagSearchContext } from "../../../context/tagSearchProvider";
 type AutoCompleteComponentPropsType = {
   handleClose: () => void;
   value: tagType[];
@@ -13,8 +14,8 @@ type AutoCompleteComponentPropsType = {
   setPendingValue: Dispatch<SetStateAction<{ name: string; color: string; description: string }[]>>;
 };
 export default function AutoCompleteComponent({ handleClose, value, pendingValue, setPendingValue }: AutoCompleteComponentPropsType) {
-  const [searchValue, setSearchValue] = useState("");
   const theme = useTheme();
+  const { searchValue, setSearchValue } = useContext(TagSearchContext);
   return (
     <Autocomplete
       open
@@ -24,6 +25,7 @@ export default function AutoCompleteComponent({ handleClose, value, pendingValue
           handleClose();
         }
       }}
+      loading
       value={pendingValue}
       onChange={(event: ChangeEvent<{}>, newValue, reason) => {
         if (event.type === "keydown" && event.key === "Backspace" && reason === "removeOption") {
@@ -33,10 +35,8 @@ export default function AutoCompleteComponent({ handleClose, value, pendingValue
       }}
       freeSolo // this is used to make the create button workable without loosing the searchValue
       disableCloseOnSelect
-      PopperComponent={(props) => {
-        return PopperComponent(props, searchValue);
-      }}
-      renderTags={() => null}
+      PopperComponent={PopperComponent}
+      // renderTags={() => null}
       noOptionsText="No labels"
       renderOption={TagOption}
       options={[...labels].sort((a, b) => {

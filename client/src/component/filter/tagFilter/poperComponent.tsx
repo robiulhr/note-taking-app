@@ -1,19 +1,22 @@
-import { MouseEventHandler, ReactElement, ReactNode, RefObject, useState } from "react";
+import { MouseEventHandler, ReactNode, RefObject, useContext, useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { autocompleteClasses } from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import TagFormModal from "../../modal/tagFormModal";
+import { TagSearchContext } from "../../../context/tagSearchProvider";
 type PopperComponentpropTypes = {
   children: ReactNode;
-  anchorEl: RefObject<ReactElement>;
+  anchorEl: RefObject<HTMLDivElement>;
 };
 
-export default function PopperComponent(props: PopperComponentpropTypes, searchValue: string) {
+export default function PopperComponent(props: PopperComponentpropTypes) {
   const { children, anchorEl, ...other } = props;
+
   const theme = useTheme();
   const [showTagForm, setShowTagForm] = useState(false);
+  const { searchValue } = useContext(TagSearchContext);
   const tagFormCloseHandler = () => {
     setShowTagForm(false);
   };
@@ -24,14 +27,14 @@ export default function PopperComponent(props: PopperComponentpropTypes, searchV
     e.preventDefault();
     e.stopPropagation();
     tagFormOpenHandler();
-    console.log("clicked.");
   };
+  useEffect(() => {
+    console.log(searchValue);
+  }, [searchValue]);
   return (
     <>
-      {" "}
       <Box
         onClick={(e) => {
-          console.log("box clicked.");
           e.stopPropagation();
         }}
         sx={{

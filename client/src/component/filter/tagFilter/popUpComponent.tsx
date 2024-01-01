@@ -34,7 +34,9 @@ export default function PopUpComponent({ open, anchorEl, handleClose, value, pen
             }}
           >
             <Typography>Tags</Typography>
-            <Button sx={{ minWidth: "15px", minHeight: "15px" }}>x</Button>
+            <Button sx={{ minWidth: "15px", minHeight: "15px" }} onClick={handleClose}>
+              x
+            </Button>
           </Box>
           <AutoCompleteComponent value={value} pendingValue={pendingValue} setPendingValue={setPendingValue} handleClose={handleClose} />
         </div>
