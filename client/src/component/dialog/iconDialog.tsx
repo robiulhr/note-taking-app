@@ -1,16 +1,10 @@
 import Dialog from "@mui/material/Dialog";
-import { Box, Card, Grid } from "@mui/material";
-import PropTypes from "prop-types";
+import { Box, Card } from "@mui/material";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
 import MuiIcon from "../iconComponent/muiIcon";
-
-IconDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedIcon: PropTypes.string.isRequired,
-};
+import { FixedSizeGrid } from "react-window";
 
 export default function IconDialog(props) {
   const { onClose, selectedIcon, open } = props;
@@ -20,9 +14,6 @@ export default function IconDialog(props) {
   const [searchText, setSearchText] = useState("");
   const handleClose = () => {
     onClose(selectedIcon);
-  };
-  const onloadCallback = (e) => {
-    console.log(e);
   };
   const handleListItemClick = (value) => {
     onClose(value);
@@ -85,7 +76,7 @@ export default function IconDialog(props) {
       </Card>
       {
         <Card sx={{ margin: "2px" }}>
-          <Grid container component={Card} spacing={2} className="card bg-white" style={{ boxShadow: "none", height: "300px", width: "400px", padding: "5px", margin: "0px", overflowY: "scroll" }}>
+          <Box component={Card} spacing={2} className="card bg-white" style={{ borderRadius: "0px", boxShadow: "none", height: "300px", width: "400px", padding: "0px", margin: "0px" }}>
             {isDataLoading && !filteredIcons && <CircularProgress />}
             {!filteredIcons || filteredIcons.length <= 0 ? (
               <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -93,42 +84,51 @@ export default function IconDialog(props) {
               </Box>
             ) : (
               filteredIcons &&
-              filteredIcons.length > 0 &&
-              filteredIcons.map((ele, ind, arr) => {
-                return (
-                  <Grid
-                    key={ind}
-                    item
-                    xs
-                    className="d-flex align-items-center justify-content-center p-0"
-                    onClick={(e) => {
-                      handleListItemClick(`material-symbols:${ele}`);
-                      toast.success("Icon selected.");
-                    }}
-                  >
-                    <Box
-                      sx={(theme) => {
-                        return {
-                          boxShadow: theme.shadows[1],
-                          borderRadius: "10px",
-                          margin: "4px",
-                          height: "50px",
+              filteredIcons.length > 0 && (
+                <FixedSizeGrid columnCount={5} columnWidth={77} height={285} rowCount={Math.ceil(filteredIcons.length / 5)} rowHeight={60} width={395}>
+                  {({ columnIndex, rowIndex, style }) => {
+                    const elementInd = rowIndex * 5 + columnIndex;
+                    const element = filteredIcons[elementInd];
+                    if (!element) return "";
+                    return (
+                      <Box
+                        sx={{
+                          ...style,
                           width: "50px",
-                          padding: "0px",
-                          cursor: "pointer",
-                          "&:hover": {
-                            background: "#d9d9d97d",
-                          },
-                        };
-                      }}
-                    >
-                      <MuiIcon onLoad={onloadCallback} icon={`material-symbols:${ele}`} sx={{ marginTop: "5px", marginLeft: "5px", fontSize: "20px", color: "black", height: "100%", width: "100%" }} />
-                    </Box>
-                  </Grid>
-                );
-              })
+                          height: "50px",
+                        }}
+                        key={columnIndex}
+                        className="d-flex align-items-center justify-content-center p-0"
+                        onClick={(e) => {
+                          handleListItemClick(`material-symbols:${element}`);
+                          toast.success("Icon selected.");
+                        }}
+                      >
+                        <Box
+                          sx={(theme) => {
+                            return {
+                              boxShadow: theme.shadows[1],
+                              borderRadius: "10px",
+                              margin: "4px",
+                              height: "50px",
+                              width: "50px",
+                              padding: "0px",
+                              cursor: "pointer",
+                              "&:hover": {
+                                background: "#d9d9d97d",
+                              },
+                            };
+                          }}
+                        >
+                          <MuiIcon icon={`material-symbols:${element}`} sx={{ marginTop: "5px", marginLeft: "5px", fontSize: "20px", color: "black", height: "100%", width: "100%" }} />
+                        </Box>
+                      </Box>
+                    );
+                  }}
+                </FixedSizeGrid>
+              )
             )}
-          </Grid>
+          </Box>
         </Card>
       }
     </Dialog>
