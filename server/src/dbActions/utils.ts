@@ -1,7 +1,6 @@
 import fs from "fs/promises";
-import { noteType } from "../types/types";
 
-type JsonReaderTypes = (filePath: string, cb: (input1: object | unknown, input2?: noteType[]) => void) => Promise<void>;
+type JsonReaderTypes = (filePath: string, cb: (input1: object | unknown, input2?: unknown[]) => void) => Promise<void>;
 export const jsonReader: JsonReaderTypes = async (filePath, cb) => {
   await fs
     .readFile(filePath)

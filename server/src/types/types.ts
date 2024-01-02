@@ -4,3 +4,11 @@ export interface noteType {
   noteDescription: string;
   noteTags: string[];
 }
+
+export interface tagType {
+  id: string;
+  name: string;
+  color: string;
+  description: string;
+  icon: string;
+}

@@ -34,7 +34,6 @@ export default function TagFormModal({ actionType, showTagForm, tagFormCloseHand
   const { searchValue } = useContext(TagSearchContext);
 
   const handleColorChange = function (color) {
-    console.log(color, "color");
     setTagColor(color.hex);
   };
   function resetTagErrors() {
@@ -105,6 +104,7 @@ export default function TagFormModal({ actionType, showTagForm, tagFormCloseHand
     const alRight = await handleCommonThings();
     if (!alRight) return;
     actionType === "create" && (await createNewTag());
+    modalCloseHandler();
   }
   function modalCloseHandler() {
     resetTagErrors();
@@ -121,10 +121,6 @@ export default function TagFormModal({ actionType, showTagForm, tagFormCloseHand
       setTagTitleValue(searchValue);
     }
   }, [searchValue]);
-
-  useEffect(() => {
-    console.log(tagTitleError, "tagTitleError", tagDescriptionError, "tagDescriptionError", tagColorError, "tagColorError");
-  }, [tagTitleError, tagDescriptionError, tagColorError]);
 
   return (
     <Modal open={showTagForm} onClose={modalCloseHandler} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
