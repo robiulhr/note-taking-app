@@ -3,6 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DoneIcon from "@mui/icons-material/Done";
 import Box from "@mui/material/Box";
 import { tagType } from "../../../types/types";
+import MuiIcon from "../../iconComponent/muiIcon";
 export default function TagOption(props: object, option: tagType, { selected }: { selected: boolean }) {
   const theme = useTheme();
   return (
@@ -18,15 +19,17 @@ export default function TagOption(props: object, option: tagType, { selected }: 
         <Box
           component="span"
           sx={{
-            width: 14,
-            height: 14,
+            width: 20,
+            height: 20,
             flexShrink: 0,
             borderRadius: "3px",
             mr: 1,
             mt: "2px",
           }}
-          style={{ backgroundColor: option.color }}
-        />
+          // style={{ backgroundColor: option.color }}
+        >
+          <MuiIcon icon={option.icon} sx={{ color: option.color }} />
+        </Box>
         <Box
           sx={{
             flexGrow: 1,
@@ -37,7 +40,9 @@ export default function TagOption(props: object, option: tagType, { selected }: 
         >
           {option.name}
           <br />
-          <span>{option.description}</span>
+          <span style={{ display: "inline-block", width: "200px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} className="truncate">
+            {option.description}
+          </span>
         </Box>
         <Box
           component={CloseIcon}

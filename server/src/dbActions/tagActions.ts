@@ -10,7 +10,7 @@ export const createTag = async (tag: tagType): Promise<string> => {
   const tagId = uuidv4();
   tag.id = tagId;
   let message = "";
-  await jsonReader(TAGS_STORE, async (err, tags) => {
+  await jsonReader<tagType[]>(TAGS_STORE, async (err: object | unknown, tags: tagType[] | undefined) => {
     if (err) {
       console.log("Error reading tags", err);
       return;
@@ -33,4 +33,30 @@ export const createTag = async (tag: tagType): Promise<string> => {
       });
   });
   return message;
+};
+
+interface readAllTagsReturn {
+  data: tagType[];
+  message: string;
+}
+
+export const readTags = async (id?: string): Promise<readAllTagsReturn> => {
+  let message = "";
+  let data: tagType[] = [];
+  await jsonReader<tagType[]>(TAGS_STORE, async (err: object | unknown, tags: tagType[] | undefined) => {
+    if (err) {
+      console.log("Error reading Tags", err);
+      return;
+    }
+    if (tags === undefined) {
+      tags = [];
+    }
+    if (id as string) {
+      data = tags.filter((ele) => ele?.id === id);
+    } else {
+      data = tags;
+    }
+    message = "success";
+  });
+  return { data: data, message };
 };

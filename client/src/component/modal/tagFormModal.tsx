@@ -97,6 +97,7 @@ export default function TagFormModal({ actionType, showTagForm, tagFormCloseHand
     if (!response) return;
     toast.success(SUCCESS_MESSAGES.TAG_CREATED);
     resetTagValues();
+    modalCloseHandler();
   }
 
   async function formSubmitHandler(e: SyntheticEvent) {
@@ -104,7 +105,6 @@ export default function TagFormModal({ actionType, showTagForm, tagFormCloseHand
     const alRight = await handleCommonThings();
     if (!alRight) return;
     actionType === "create" && (await createNewTag());
-    modalCloseHandler();
   }
   function modalCloseHandler() {
     resetTagErrors();

@@ -9,4 +9,5 @@ export const ERROR_MESSAGES = {
   TAG_DATA_ERROR: "Please, provide all required data.",
   TAG_DATA_INVALID_ERROR: "Please, provide valid data for all feilds.",
   TAG_DATA_LENGTH_ERROR: "Your data must be longer than the lowest limit.",
+  ALL_TAGS_READ_ERROR: "Failed, to read all tags",
 };

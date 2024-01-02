@@ -5,6 +5,7 @@ export const API_ROUTES = {
   EDIT_NOTE: "notes/edit", // add the note id at the end
   DELETE_NOTE: "notes/delete", // add the note id at the end
   CREATE_TAG: "createtag",
+  GET_ALL_TAGS: "alltags",
 };
 
 export default "http://localhost:3000";

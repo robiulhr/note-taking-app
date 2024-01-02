@@ -1,7 +1,8 @@
 import fs from "fs/promises";
 
-type JsonReaderTypes = (filePath: string, cb: (input1: object | unknown, input2?: unknown[]) => void) => Promise<void>;
-export const jsonReader: JsonReaderTypes = async (filePath, cb) => {
+type CallbackType<T> = (err: object | unknown, data?: T) => Promise<void>;
+
+export const jsonReader = async <T>(filePath: string, cb: CallbackType<T>): Promise<void> => {
   await fs
     .readFile(filePath)
     .then((fileData: Buffer) => {

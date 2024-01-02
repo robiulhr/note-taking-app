@@ -10,7 +10,7 @@ export const createNote = async (note: noteType): Promise<string> => {
   const noteId = uuidv4();
   note.id = noteId;
   let message = "";
-  await jsonReader(NOTES_STORE, async (err, notes) => {
+  await jsonReader<noteType[]>(NOTES_STORE, async (err: object | unknown, notes: noteType[] | undefined) => {
     if (err) {
       console.log("Error reading notes", err);
       return;
@@ -43,7 +43,7 @@ interface readAllNotesReturn {
 export const readNotes = async (id?: string): Promise<readAllNotesReturn> => {
   let message = "";
   let data: object[] = [];
-  await jsonReader(NOTES_STORE, async (err, notes) => {
+  await jsonReader<noteType[]>(NOTES_STORE, async (err: object | unknown, notes: noteType[] | undefined) => {
     if (err) {
       console.log("Error reading notes", err);
       return;
@@ -65,7 +65,7 @@ export const updateNote = async (id: string, updatedNote: noteType): Promise<rea
   const { noteTitle, noteDescription, noteTags } = updatedNote;
   let message = "";
   let data: object[] = [];
-  await jsonReader(NOTES_STORE, async (err, notes) => {
+  await jsonReader<noteType[]>(NOTES_STORE, async (err: object | unknown, notes: noteType[] | undefined) => {
     if (err) {
       console.log("Error reading notes", err);
       return;
@@ -101,7 +101,7 @@ export const updateNote = async (id: string, updatedNote: noteType): Promise<rea
 export const deleteNote = async (id: string): Promise<object> => {
   let message = "";
   let data: object[] = [];
-  await jsonReader(NOTES_STORE, async (err, notes) => {
+  await jsonReader<noteType[]>(NOTES_STORE, async (err: object | unknown, notes: noteType[] | undefined) => {
     if (err) {
       console.log("Error reading notes", err);
       return;

@@ -9,6 +9,7 @@ import { tagType } from "../../../types/types";
 import { TagSearchContext } from "../../../context/tagSearchProvider";
 
 type PopUpComponentPropsType = {
+  tagsData: object;
   open: boolean;
   anchorEl: RefObject<HTMLElement>;
   handleClose: () => void;
@@ -17,7 +18,7 @@ type PopUpComponentPropsType = {
   setPendingValue: Dispatch<SetStateAction<{ name: string; color: string; description: string }[]>>;
 };
 
-export default function PopUpComponent({ open, anchorEl, handleClose, value, pendingValue, setPendingValue }: PopUpComponentPropsType) {
+export default function PopUpComponent({ tagsData, open, anchorEl, handleClose, value, pendingValue, setPendingValue }: PopUpComponentPropsType) {
   const theme = useTheme();
   const { setSearchValue } = useContext(TagSearchContext);
   const id = open ? "github-label" : undefined;
@@ -51,7 +52,7 @@ export default function PopUpComponent({ open, anchorEl, handleClose, value, pen
               x
             </Button>
           </Box>
-          <AutoCompleteComponent value={value} pendingValue={pendingValue} setPendingValue={setPendingValue} handleClose={handleClose} />
+          <AutoCompleteComponent tagsData={tagsData} value={value} pendingValue={pendingValue} setPendingValue={setPendingValue} handleClose={handleClose} />
         </div>
       </ClickAwayListener>
     </Box>

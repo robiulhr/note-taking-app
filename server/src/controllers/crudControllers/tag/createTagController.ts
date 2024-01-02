@@ -11,5 +11,5 @@ export async function createTagPostController(req: Request, res: Response) {
   if (!response) {
     return sendResponse(res, 500, ERROR_MESSAGES.FAILED_ERROR);
   }
-  return sendResponse(res, 200, SUCCESS_MESSAGES.NOTE_CREATED);
+  return sendResponse(res, 200, SUCCESS_MESSAGES.TAG_CREATED);
 }

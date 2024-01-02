@@ -8,7 +8,7 @@ export const tagFormDataValidate = (req: Request, res: Response, next: NextFunct
     return sendResponse(res, 300, ERROR_MESSAGES.TAG_DATA_ERROR);
   } else if (typeof name !== "string" || typeof description !== "string" || !isHexColor(color) || typeof icon !== "string") {
     return sendResponse(res, 300, ERROR_MESSAGES.TAG_DATA_INVALID_ERROR);
-  } else if (name.length < 10 || description.length < 50) {
+  } else if (name.length < 6 || description.length < 50) {
     return sendResponse(res, 300, ERROR_MESSAGES.TAG_DATA_LENGTH_ERROR);
   }
   next();

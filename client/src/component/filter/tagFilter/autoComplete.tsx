@@ -3,19 +3,20 @@ import { useTheme } from "@mui/material/styles";
 import Autocomplete from "@mui/material/Autocomplete";
 import InputBase from "@mui/material/InputBase";
 import PopperComponent from "./poperComponent";
-import { labels } from "./demoData";
 import { tagType } from "../../../types/types";
 import TagOption from "./tagOption";
 import { TagSearchContext } from "../../../context/tagSearchProvider";
 import { Box, CircularProgress } from "@mui/material";
 type AutoCompleteComponentPropsType = {
+  tagsData: object;
   handleClose: () => void;
   value: tagType[];
   pendingValue: tagType[];
   setPendingValue: Dispatch<SetStateAction<{ name: string; color: string; description: string }[]>>;
 };
-export default function AutoCompleteComponent({ handleClose, value, pendingValue, setPendingValue }: AutoCompleteComponentPropsType) {
+export default function AutoCompleteComponent({ tagsData, handleClose, value, pendingValue, setPendingValue }: AutoCompleteComponentPropsType) {
   const theme = useTheme();
+  const { tagsLoading, allTags } = tagsData;
   const { searchValue, setSearchValue } = useContext(TagSearchContext);
   return (
     <Autocomplete
@@ -27,7 +28,7 @@ export default function AutoCompleteComponent({ handleClose, value, pendingValue
           handleClose();
         }
       }}
-      loading
+      loading={tagsLoading}
       loadingText={
         <Box sx={{ width: "100%", minHeight: "200px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <CircularProgress color="inherit" />
@@ -46,12 +47,12 @@ export default function AutoCompleteComponent({ handleClose, value, pendingValue
       // renderTags={() => null}
       noOptionsText="No labels"
       renderOption={TagOption}
-      options={[...labels].sort((a, b) => {
+      options={[...allTags].sort((a, b) => {
         // Display the selected labels first.
         let ai = value.indexOf(a);
-        ai = ai === -1 ? value.length + labels.indexOf(a) : ai;
+        ai = ai === -1 ? value.length + allTags.indexOf(a) : ai;
         let bi = value.indexOf(b);
-        bi = bi === -1 ? value.length + labels.indexOf(b) : bi;
+        bi = bi === -1 ? value.length + allTags.indexOf(b) : bi;
         return ai - bi;
       })}
       getOptionLabel={(option) => option.name}

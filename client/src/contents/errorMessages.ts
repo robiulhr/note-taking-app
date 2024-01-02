@@ -12,6 +12,7 @@ export const ERROR_MESSAGES = {
   INTERNAL_ERROR: "Something went wrong.",
   ALL_NOTES_READ_ERROR: "Failed to get all notes.",
   NOTE_READ_ERROR: "Failed to get the note",
+  ALL_TAGS_READ_ERROR: "Failed to get all tags.",
   NO_DATA_FOUND_ERROR: "No, data found",
   NOTE_DELETE_ERROR: "Failed to delete the note.",
 };

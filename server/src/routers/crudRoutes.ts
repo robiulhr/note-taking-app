@@ -7,6 +7,7 @@ import editNoteController from "../controllers/crudControllers/editNoteControlle
 import deleteNoteController from "../controllers/crudControllers/deleteNoteController";
 import { createTagPostController } from "../controllers/crudControllers/tag/createTagController";
 import { tagFormDataValidate } from "../middleware/tagFormDataValidate";
+import { allTagsController } from "../controllers/crudControllers/tag/allTagsController";
 
 const crudRoutes = Router();
 
@@ -18,5 +19,6 @@ crudRoutes.put("/notes/edit/:id", noteFormDataValidate, editNoteController);
 crudRoutes.delete("/notes/delete/:id", deleteNoteController);
 
 // tag routes
+crudRoutes.get("/alltags", allTagsController);
 crudRoutes.post("/createtag", tagFormDataValidate, createTagPostController);
 export default crudRoutes;
