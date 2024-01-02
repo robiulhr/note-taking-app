@@ -148,7 +148,7 @@ const styles = {
   SearchCardInner: {
     padding: "16px 16px",
     borderRadius: "10px",
-    background: "#f4e3fb",
+    background: "rgb(25 118 210 / 20%)",
   },
   searchContainer: {
     display: "flex",

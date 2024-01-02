@@ -5,7 +5,7 @@ import { useState } from "react";
 import IconDialog from "../dialog/iconDialog";
 import MuiIcon from "../iconComponent/muiIcon";
 
-export default function IconPicker({ selectedIcon, setSelectedIcon }) {
+export default function IconPicker({ selectedIcon, setSelectedIcon, tagIconError }) {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -18,7 +18,7 @@ export default function IconPicker({ selectedIcon, setSelectedIcon }) {
     <>
       <Box
         sx={(theme) => {
-          return { padding: "16px 10px", width: "100%", cursor: "pointer", borderRadius: "10px", border: `1px solid ${"rgba(0, 0, 0, 0.23)"}`, position: "relative" };
+          return { padding: "16px 10px", width: "100%", cursor: "pointer", borderRadius: "10px", border: `1px solid ${tagIconError ? "red" : "rgba(0,0,0,.2)"}`, position: "relative" };
         }}
         onClick={handleClickOpen}
       >

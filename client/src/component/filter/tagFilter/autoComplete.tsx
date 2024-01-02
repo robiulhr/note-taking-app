@@ -23,6 +23,7 @@ export default function AutoCompleteComponent({ handleClose, value, pendingValue
       multiple
       onClose={(event, reason) => {
         if (reason === "escape") {
+          setSearchValue("");
           handleClose();
         }
       }}

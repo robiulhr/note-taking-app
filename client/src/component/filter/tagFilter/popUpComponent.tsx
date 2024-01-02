@@ -4,8 +4,9 @@ import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
 import AutoCompleteComponent from "./autoComplete";
 import { useTheme } from "@mui/material/styles";
-import { Dispatch, RefObject, SetStateAction } from "react";
+import { Dispatch, RefObject, SetStateAction, useContext } from "react";
 import { tagType } from "../../../types/types";
+import { TagSearchContext } from "../../../context/tagSearchProvider";
 
 type PopUpComponentPropsType = {
   open: boolean;
@@ -18,10 +19,16 @@ type PopUpComponentPropsType = {
 
 export default function PopUpComponent({ open, anchorEl, handleClose, value, pendingValue, setPendingValue }: PopUpComponentPropsType) {
   const theme = useTheme();
+  const { setSearchValue } = useContext(TagSearchContext);
   const id = open ? "github-label" : undefined;
   return (
     <Box component={Popper} sx={{ width: 300, zIndex: 30, bgcolor: "white", boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", borderRadius: "3px", border: "1px solid #44443330" }} id={id} open={open} anchorEl={anchorEl.current} placement="bottom-start">
-      <ClickAwayListener onClickAway={handleClose}>
+      <ClickAwayListener
+        onClickAway={() => {
+          handleClose();
+          setSearchValue("");
+        }}
+      >
         <div className="bg-red">
           <Box
             sx={{
@@ -34,7 +41,13 @@ export default function PopUpComponent({ open, anchorEl, handleClose, value, pen
             }}
           >
             <Typography>Tags</Typography>
-            <Button sx={{ minWidth: "15px", minHeight: "15px" }} onClick={handleClose}>
+            <Button
+              sx={{ minWidth: "15px", minHeight: "15px" }}
+              onClick={() => {
+                handleClose();
+                setSearchValue("");
+              }}
+            >
               x
             </Button>
           </Box>

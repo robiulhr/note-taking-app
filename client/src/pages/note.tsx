@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useErrorBoundary } from "react-error-boundary";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
-import TagsCart from "../component/cart/tagsCart";
+import TagsCart from "../component/cart/avatarTagsCart";
 import { FullPageLoading } from "../component/loader/fullPageLoading";
 import { noteType } from "../types/types";
 import NoDataFound from "../component/error/noDataFound";

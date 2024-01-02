@@ -93,11 +93,12 @@ export default function NoteForm({ actionType, noteId, noteData, noteHandlers, p
     resetNoteErrors();
     // set errors
     const anyError = setErrors();
-    if (anyError) return;
+    if (anyError) return false;
     // start loading
     setLoading(true);
     // wait is for test purpose
     await wait(2000);
+    return true;
   }
   async function createNewNote() {
     const response = await createNote(noteTitle, noteTags, noteDescription);
@@ -126,7 +127,8 @@ export default function NoteForm({ actionType, noteId, noteData, noteHandlers, p
 
   async function formSubmitHandler(e: SyntheticEvent) {
     e.preventDefault();
-    await handleCommonThings();
+    const alRight = await handleCommonThings();
+    if (!alRight) return;
     actionType === "create" && (await createNewNote());
     actionType === "update" && alertShowHandler();
   }

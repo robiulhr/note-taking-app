@@ -3,8 +3,8 @@ import { useState } from "react";
 import { getPlainText } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { useOverflowCheck } from "../../customHooks/useOverflowCheck";
-import TagsCart from "./tagsCart";
 import NoteHeading from "../noteHeading";
+import AvatarTagsCart from "./avatarTagsCart";
 type noteCartPropsType = {
   key: string;
   id: string;
@@ -38,10 +38,7 @@ export default function NoteCart({ key, id, noteTitle, noteDescription, noteTags
           )}
         </Typography>
       </Box>
-      <Box className="w-[100%] h-[65px]">
-        <Divider className="w-[100%]" />
-        <TagsCart noteTags={noteTags} />
-      </Box>
+      <AvatarTagsCart noteTags={noteTags} />
     </Box>
   );
 }

@@ -5,4 +5,5 @@ export const SUCCESS_MESSAGES = {
   ALL_NOTES_READ: "Fatched, all notes successfully.",
   NOTE_READ: "Fatched the note successfully.",
   NOTE_UPDATE: "Note updated successfully.",
+  TAG_CREATED: "Tag, created successfully.",
 };

@@ -20,6 +20,7 @@ export default function TagsMainInput({ anchorEl, value, handleClear, handleClic
           ) : (
             value.map((option, index) => (
               <Box
+                key={index}
                 sx={{
                   "& span": { overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" },
                   "& svg": { fontSize: "20px", cursor: "pointer", padding: "4px" },

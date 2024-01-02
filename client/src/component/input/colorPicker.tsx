@@ -10,9 +10,9 @@ class ColorPicker extends React.Component {
   state = {
     displayColorPicker: false,
     color: {
-      r: "241",
-      g: "112",
-      b: "19",
+      r: "255",
+      g: "255",
+      b: "255",
       a: "1",
     },
   };
@@ -26,6 +26,7 @@ class ColorPicker extends React.Component {
   };
 
   handleChange = (color) => {
+    this.props.handleColorChange(color);
     this.setState({ color: color.rgb });
   };
 
@@ -36,13 +37,14 @@ class ColorPicker extends React.Component {
           width: "36px",
           height: "36px",
           borderRadius: "10px",
-          background: `rgba(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b}, ${this.state.color.a})`,
+          border: "1px solid rgba(0,0,0,.2)",
+          background: this.props.color ? this.props.color : `rgba(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b}, ${this.state.color.a})`,
         },
         swatch: {
           padding: "10px",
           background: "#fff",
           borderRadius: "10px",
-          //   boxShadow: "0 0 0 1px rgba(0,0,0,.1)",
+          // boxShadow: "0 0 0 1px rgba(0,0,0,.1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -66,7 +68,7 @@ class ColorPicker extends React.Component {
       <div>
         <div style={styles.swatch} onClick={this.handleClick}>
           <div style={styles.color} />
-          {this.state.displayColorPicker ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+          {this.state.displayColorPicker ? <ArrowDropUpIcon sx={{ marginLeft: "5px", marginRight: "-15px" }} /> : <ArrowDropDownIcon sx={{ marginLeft: "5px", marginRight: "-15px" }} />}
         </div>
         {this.state.displayColorPicker ? (
           <div style={styles.popover}>
