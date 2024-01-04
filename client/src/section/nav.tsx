@@ -5,13 +5,12 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import { useNavigate } from "react-router-dom";
-import { IconButton } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { Button } from "@mui/material";
 import ProfileMenu from "../component/menu/profileMenu";
 import NotificationMenu from "../component/menu/notificationMenu";
 import DarkLightMode from "../component/switch/darkLightMode";
-import Search from "./search";
 import SearchComponent from "./search";
+import CreateIcon from "@mui/icons-material/Create";
 export default function Nav() {
   const navigate = useNavigate();
   return (
@@ -35,6 +34,16 @@ export default function Nav() {
           </IconButton> */}
           <Box className="flex items-center">
             <SearchComponent />
+            <Button
+              variant="outlined"
+              className="rounded-md border-[white] mx-[10px] text-white"
+              startIcon={<CreateIcon />}
+              onClick={() => {
+                navigate("/create");
+              }}
+            >
+              write
+            </Button>
             <DarkLightMode />
             <NotificationMenu />
             <ProfileMenu />

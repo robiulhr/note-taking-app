@@ -2,6 +2,7 @@ import SwipeableViews from "react-swipeable-views";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import AllNotes from "../../../section/allNotes";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -28,13 +29,22 @@ export default function AllArticlePanels({ value, handleChangeIndex }) {
   return (
     <SwipeableViews axis={theme.direction === "rtl" ? "x-reverse" : "x"} index={value} onChangeIndex={handleChangeIndex}>
       <TabPanel value={value} index={0} dir={theme.direction}>
-        Item One
+        <AllNotes />
       </TabPanel>
       <TabPanel value={value} index={1} dir={theme.direction}>
-        Item Two
+        <AllNotes />
       </TabPanel>
       <TabPanel value={value} index={2} dir={theme.direction}>
-        Item Three
+        <AllNotes />
+      </TabPanel>
+      <TabPanel value={value} index={3} dir={theme.direction}>
+        <AllNotes />
+      </TabPanel>
+      <TabPanel value={value} index={4} dir={theme.direction}>
+        <AllNotes />
+      </TabPanel>
+      <TabPanel value={value} index={5} dir={theme.direction}>
+        <AllNotes />
       </TabPanel>
     </SwipeableViews>
   );

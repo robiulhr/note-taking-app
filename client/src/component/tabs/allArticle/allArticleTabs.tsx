@@ -9,7 +9,7 @@ import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import FiberNewIcon from "@mui/icons-material/FiberNew";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import FilterSection from "../../../section/filterSection";
 function a11yProps(index: number) {
   return {
     id: `full-width-tab-${index}`,
@@ -35,17 +35,14 @@ export default function AllArticleTabs() {
           <Tab iconPosition="start" icon={<AutoFixHighIcon />} label="Personalized" {...a11yProps(0)} />
           <Tab iconPosition="start" icon={<PeopleIcon />} label="Following" {...a11yProps(1)} />
           <Tab iconPosition="start" icon={<MilitaryTechIcon />} label="Featured" {...a11yProps(2)} />
-          <Tab iconPosition="start" icon={<TrendingUpIcon />} label="Trending" {...a11yProps(2)} />
-          <Tab iconPosition="start" icon={<FiberNewIcon />} label="Latest" {...a11yProps(2)} />
-          <Tab iconPosition="start" icon={<LocalFireDepartmentIcon />} label="All Time Best" {...a11yProps(2)} />
+          <Tab iconPosition="start" icon={<TrendingUpIcon />} label="Trending" {...a11yProps(3)} />
+          <Tab iconPosition="start" icon={<FiberNewIcon />} label="Latest" {...a11yProps(4)} />
+          <Tab iconPosition="start" icon={<LocalFireDepartmentIcon />} label="All Time Best" {...a11yProps(5)} />
         </Tabs>
         <Box>
-          <Tabs>
-            <Tab icon={<FilterListIcon />} iconPosition="start" label="Filter" className="w-[150px]"></Tab>
-          </Tabs>
+          <FilterSection />
         </Box>
       </Box>
-
       <AllArticlePanels value={value} handleChangeIndex={handleChangeIndex} />
     </Box>
   );
