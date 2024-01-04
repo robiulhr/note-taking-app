@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ProfileMenu from "../component/menu/profileMenu";
+import NotificationMenu from "../component/menu/notificationMenu";
+import DarkLightMode from "../component/switch/darkLightMode";
+import Search from "./search";
+import SearchComponent from "./search";
 export default function Nav() {
   const navigate = useNavigate();
   return (
@@ -29,7 +33,12 @@ export default function Nav() {
 
             <SettingsIcon className="text-white" fontSize="inherit" />
           </IconButton> */}
-          <ProfileMenu />
+          <Box className="flex items-center">
+            <SearchComponent />
+            <DarkLightMode />
+            <NotificationMenu />
+            <ProfileMenu />
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

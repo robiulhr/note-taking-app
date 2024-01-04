@@ -18,12 +18,22 @@
 
 ## code inspiration
 
-1. https://github.com/varHarrie/varharrie.github.io/tree/v2
+### hashnode clone
 
-2. https://github.com/dunky11/react-saas-template
+1. https://github.com/ujen5173/Hashnode/tree/main
 
-3. https://github.com/idurar/idurar-erp-crm
+2. https://github.com/ujen5173/Hashnode-old
 
-4. https://zonayedpca.github.io/react-mini-blog/
+### markdown editor
 
-5. https://github.com/jgudo/ecommerce-react/tree/master/src
+1. https://github.com/ujen5173/Markdown-Editor/tree/main
+
+2. https://github.com/varHarrie/varharrie.github.io/tree/v2
+
+3. https://github.com/dunky11/react-saas-template
+
+4. https://github.com/idurar/idurar-erp-crm
+
+5. https://zonayedpca.github.io/react-mini-blog/
+
+6. https://github.com/jgudo/ecommerce-react/tree/master/src
